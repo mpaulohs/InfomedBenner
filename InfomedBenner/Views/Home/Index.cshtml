@@ -15,16 +15,16 @@
                     <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Inicio</label>
                     <select class="custom-select my-1 mr-sm-2" id="inicio">
                         <option value="0" selected ></option>
-                        <option value="3">201906</option>
-                        <option value="2">201905</option>
                         <option value="1">201904</option>
+                        <option value="2">201905</option>
+                        <option value="3">201906</option>
                     </select>
                     <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Final</label>
                     <select class="custom-select my-1 mr-sm-2" id="fim">
                         <option selected value="0"></option>
-                        <option value="3">201906</option>
-                        <option value="2">201905</option>
                         <option value="1">201904</option>
+                        <option value="2">201905</option>
+                        <option value="3">201906</option>
                     </select>
 
                     <button type="submit" class="btn btn-primary my-1">Submit</button>
@@ -55,6 +55,7 @@
 <script type="text/javascript">
     const uri = window.location;
     var itens = [];
+    var bool = false;
 
     $(function () {
         $('.selectpicker').selectpicker();
@@ -63,12 +64,12 @@
     })
 
     $('#inicio').on('change', function() {        
-        //Validation();
+        Validation();
         LoadSelect();
     });
 
     $('#fim').on('change', function() {      
-       // Validation(); 
+        Validation(); 
         LoadSelect();
     });
 
@@ -78,13 +79,15 @@
     });
 
     function LoadSelect() {
-        
         var tipo = $("#tipo").find(":checked").val();
         var inicio = $("#inicio").find(":checked").val();
         var fim = $("#fim").find(":checked").val();
+        var option = $("#sl").find(":checked").val();
 
-        console.log(tipo + " -- " + inicio + " -- " + fim)
-        if (tipo != 0 && inicio != 0 && fim != 0 && inicio >= fim ) {
+
+         console.log(tipo + " -- " + inicio + " -- " + fim + " -- " + Validation())
+        if (tipo != 0 && inicio != 0  && Validation() == true && inicio == fim) {
+            console.log('ok');
             for (var i = inicio; i < fim; i--) {
 
             }
@@ -93,13 +96,27 @@
         
     }
 
+    function Validation2() {
+        var fim = $("#fim").find(":checked").val();
+        var inicio = $("#inicio").find(":checked").val();        
+        if (fim > inicio) {
+            
+            bool =  false;
+        } else {
+            //  $("#fim").val(inicio);
+            bool= true;
+        }
+    }
+
     function Validation() {
         var fim = $("#fim").find(":checked").val();
-        var inicio = $("#inicio").find(":checked").val();
-        if (fim >= inicio) {
-            
-        } else {
+        var inicio = $("#inicio").find(":checked").val();        
+        if (fim > inicio) {
             $("#fim").val(inicio);
+            return false;
+        } else {
+            //  $("#fim").val(inicio);
+            return true;
         }
     }
 
