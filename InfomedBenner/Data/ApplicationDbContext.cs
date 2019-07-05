@@ -15,5 +15,6 @@ namespace InfomedBenner.Data
         }
 
         public DbSet<RedeUnimed> RedeUnimed { get; set; }
+        public DbSet<Medicamento> Medicamento { get; set; }
     }
 }
